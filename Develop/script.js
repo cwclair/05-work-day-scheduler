@@ -9,6 +9,13 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   //
+  $('button').on('click', function(event) {
+    event.preventDefault();
+    console.log("Save to local storage");
+    var task = $(this).parent().children('.description').val();
+    localStorage.setItem("task", task);
+  });
+  
   
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
@@ -16,18 +23,7 @@ $(function () {
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
   //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
-});
-setInterval(function() {
-  $('#currentDay').text(dayjs().format('dddd, MMMM DD, YYYY'));
-}, 1000);
-
-var currentTime = dayjs();
-console.log(currentTime.format('HH:mm:ss'));
+  var currentTime = dayjs();
 
 var eightAM = dayjs().set('hour', 8).set('minute', 00).set('second', 00);
 var nineAM = dayjs().set('hour', 9).set('minute', 00).set('second', 00);
@@ -56,8 +52,6 @@ var hourEighteen = $('#hour-18');
 var hourlyTimes = [eightAM, nineAM, tenAM, elevenAM, twelvePM, onePM, twoPM, threePM, fourPM, fivePM, sixPM];
 var hourSlots = [hourEight, hourNine, hourTen, hourEleven, hourTwelve, hourThirteen, hourFourten, hourFifteen, hourSixteen, hourSeventeen, hourEighteen];
 
-console.log((fivePM.diff(currentTime)));
-
 
 for (var i = 0; i < hourSlots.length; i++) {
   if ((hourlyTimes[i].diff(currentTime)) < -3600000) {
@@ -72,8 +66,22 @@ for (var i = 0; i < hourSlots.length; i++) {
   }
 }
 
+  // TODO: Add code to get any user input that was saved in localStorage and set
+  // the values of the corresponding textarea elements. HINT: How can the id
+  // attribute of each time-block be used to do this?
+  //
 
-$('button').on('click', function(event) {
-  event.preventDefault();
-  console.log('Save this info!');
+  // TODO: Add code to display the current date in the header of the page.
+  setInterval(function() {
+    $('#currentDay').text(dayjs().format('dddd, MMMM DD, YYYY'));
+  }, 1000);
+  
+  
 });
+
+
+
+
+
+
+
