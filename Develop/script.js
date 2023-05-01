@@ -1,14 +1,5 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
 $(function () {
-/*  TODO: Add a listener for click events on the save button. This code should use the id in the containing time-block as a key to save the user input in local storage. 
-
-HINT: What does `this` reference in the click listener function? 
-
-(CHRIS NOTE: In an event, "this" refers to the element that received the event, so the save button.) 
-
-How can DOM traversal be used to get the "hour-x" id of the time-block containing the button that was clicked? How might the id be useful when saving the description in local storage? */
+/*  This jQuery event listener captures information saved in the button's sibling with the class of "description" and the ID of the button's parent element, and saves both items in local storage as timeBlock and task. This information will be retrieved for display in the appropriate slot, courtesy of a localStorage.getItem action later in the code. */
   
   $('button').on('click', function(event) {
     event.preventDefault();
@@ -21,9 +12,8 @@ How can DOM traversal be used to get the "hour-x" id of the time-block containin
   });
   
   
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. DONE
-  //
+  /* This code sets variable for the current time (determined via dayjs()), applies a time value to each hour of the day that is being covered by the planner (in my case, 8 am hour through the 6 pm hour) to be used to compare against the current time, and variables for the rows of the planner itself. */
+
   var currentTime = dayjs();
 
   var eightAM = dayjs().set('hour', 8).set('minute', 00).set('second', 00);
@@ -53,6 +43,7 @@ How can DOM traversal be used to get the "hour-x" id of the time-block containin
   var hourlyTimes = [eightAM, nineAM, tenAM, elevenAM, twelvePM, onePM, twoPM, threePM, fourPM, fivePM, sixPM];
   var hourSlots = [hourEight, hourNine, hourTen, hourEleven, hourTwelve, hourThirteen, hourFourten, hourFifteen, hourSixteen, hourSeventeen, hourEighteen];
 
+/* This for loop looks at the current time and the time value of each hour of time, and then assigns a past, present, or future class to each row of the planner accordingly. */ 
 
   for (var i = 0; i < hourSlots.length; i++) {
     if ((hourlyTimes[i].diff(currentTime)) < -3600000) {
@@ -67,17 +58,23 @@ How can DOM traversal be used to get the "hour-x" id of the time-block containin
     }
   }
 
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  // NOT WORKING PROPERLY!!!!
+// Do I have anything in local storage in any of my hour slots? Let's call them all, just in case.
+  $('#hour-8 .description').val(localStorage.getItem('hour-8'));
+  $('#hour-9 .description').val(localStorage.getItem('hour-9'));
+  $('#hour-10 .description').val(localStorage.getItem('hour-10'));
+  $('#hour-11 .description').val(localStorage.getItem('hour-11'));
+  $('#hour-12 .description').val(localStorage.getItem('hour-12'));
+  $('#hour-13 .description').val(localStorage.getItem('hour-13'));
+  $('#hour-14 .description').val(localStorage.getItem('hour-14'));
+  $('#hour-15 .description').val(localStorage.getItem('hour-15'));
+  $('#hour-16 .description').val(localStorage.getItem('hour-16'));
+  $('#hour-17 .description').val(localStorage.getItem('hour-17'));
+  $('#hour-18 .description').val(localStorage.getItem('hour-18'));
 
-  // $('.description').val(localStorage.getItem('task'));
-  $('.description').val(localStorage.getItem('hour-16'));
 
 
+  /* A function that pulls the current day and displays it in "[full day], [full spelling of month] [double digit date], [four-digit year]" format in the HTML element with the ID of currentDay. */
 
-  // TODO: Add code to display the current date in the header of the page. DONE
   setInterval(function() {
     $('#currentDay').text(dayjs().format('dddd, MMMM DD, YYYY'));
   }, 1000);
