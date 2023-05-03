@@ -45,11 +45,15 @@ I then have a localStorage.getItem block, where the value of the description cla
 
 Pretty straightforward. I have included three screenshots: one showing the planner at a larger width; one more narrow; and one with the console visible to show the local storage information. The screenshots were taken at 11:36 and 11:37 a.m. May 2, hence the gray slots for 8, 9, and 10 am; the green color for 11 am, and blue for noon onward.
 
+![screenshot at larger width of workday scheduler](Assets/screenshot-full-width-2023-may-02-1136-am.png)
 
+![screenshot at smaller width of workday scheduler](Assets/screenshot-phone-width-2023-may-02-1136-am.png)
+
+![screenshot of workday scheduler with console visible](Assets/screenshot-console-visible-2023-may-02-1137-am.png)
 
 ## Link to Deployed Site
 
-
+https://cwclair.github.io/05-work-day-scheduler/
 
 ## Resources used
 
